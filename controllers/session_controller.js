@@ -25,7 +25,7 @@ exports.create = function (req, res){
 };
 
 //MW de autorización
-exports.loginRequired = function (req, res){
+exports.loginRequired = function (req, res, next){
 
 	if(req.session.user)
 		next();

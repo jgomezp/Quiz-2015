@@ -24,6 +24,15 @@ exports.create = function (req, res){
 	});
 };
 
+//MW de autorización
+exports.loginRequired = function (req, res){
+
+	if(req.session.user)
+		next();
+	else
+		res.redirect('/login');
+};
+
 //DELETE /logout
 exports.destroy = function (req, res){
 	delete req.session.user;

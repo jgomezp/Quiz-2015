@@ -33,6 +33,32 @@ exports.loginRequired = function (req, res, next){
 		res.redirect('/login');
 };
 
+//MW de autologout
+exports.autologout = function (req, res, next){
+	
+	if(!req.session.user)
+		next();
+	else{
+		var _2minutos = 1000*60*2; //2 minutos
+		
+		var tiempoRegistrado = new Date().getTime()+_2minutos;
+		if(req.session.time){
+			tiempoRegistrado = new Date(req.session.time).getTime()+_2minutos;
+		}
+		
+		var tiempo = new Date().getTime();
+		req.session.time = new Date().getTime();
+		
+		if(tiempoRegistrado < tiempo){
+			console.log('Ya han pasado 2 min' );
+			res.redirect('/logout');
+		}else{
+			next();
+		}
+	}
+};
+
+
 //DELETE /logout
 exports.destroy = function (req, res){
 	delete req.session.user;

@@ -43,8 +43,6 @@ exports.create = function (req, res){
 //GET /quizes/:quizID/comment/:commentId(\\d+)/publish
 exports.publish = function (req, res){
 	
-	console.log("@@@@@@@@@@@@ req.comment", req.comment);
-	console.log("@@@@@@@@@@@@ req.comment.publicado ", req.comment.publicado );
 	req.comment.publicado = true;
 	
 	req.comment.save({fiels: ["publicado"]})
